@@ -1,43 +1,35 @@
-import os
-from selene import browser, be, have
+from qa_guru_hw_9.pages.registration_page import RegistrationPage
 
 
 def test_demo_qa():
-    browser.open('/automation-practice-form')
-    browser.element('#firstName').should(be.blank).type('Vin')
-    browser.element('#lastName').should(be.blank).type('Diesel')
-    browser.element('#userEmail').should(be.blank).type('mr.diesel@mail.ru')
-    browser.element('[for="gender-radio-1"]').click()
-    browser.element('#userNumber').should(be.blank).type('9999999999')
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__month-select').click().element('[value="7"]').click()
-    browser.element('.react-datepicker__year-select').click().element('[value="1995"]').click()
-    browser.element('.react-datepicker__day.react-datepicker__day--015').click()
-    browser.element('#subjectsInput').should(be.blank).type('M')
-    browser.all('.subjects-auto-complete__option')[2].click()
-    browser.element('[for="hobbies-checkbox-1"]').click()
-    browser.element('#uploadPicture').send_keys(os.path.abspath('person1.jpg'))
-    browser.element('#currentAddress').should(be.blank).type('32449 Herzog Heights Suite 572')
-    browser.element('#state').click().element('#react-select-3-option-2').click()
-    browser.element('#city').click().element('#react-select-4-option-1').click()
-    browser.element('#submit').click()
+    registration_page = RegistrationPage()
+    registration_page.open()
+    registration_page.fill_first_name('Vin')
+    registration_page.fill_last_name('Diesel')
+    registration_page.fill_email('mr.diesel@mail.ru')
+    registration_page.fill_gender('Male')
+    registration_page.fill_number('9999999999')
+    registration_page.fill_date('7', '1995', '015')
+    registration_page.fill_subjects('M')
+    registration_page.fill_hobbies('Sports')
+    registration_page.upload_img('person1.jpg')
+    registration_page.fill_current_address('32449 Herzog Heights Suite 572')
+    registration_page.fill_state('Haryana')
+    registration_page.fill_city('Panipat')
+    registration_page.submit()
+    registration_page.should_have_title('Thanks for submitting the form')
 
-    browser.element('#example-modal-sizes-title-lg').should(
-        have.exact_text('Thanks for submitting the form'))
-
-    browser.element('.table.table-dark.table-striped.table-bordered.table-hover').all('tr').should(
-        have.exact_texts(
-            'Label Values',
-            'Student Name Vin Diesel',
-            'Student Email mr.diesel@mail.ru',
-            'Gender Male',
-            'Mobile 9999999999',
-            'Date of Birth 15 August,1995',
-            'Subjects Computer Science',
-            'Hobbies Sports',
-            'Picture person1.jpg',
-            'Address 32449 Herzog Heights Suite 572',
-            'State and City Haryana Panipat'
-        )
+    registration_page.should_registered_user_info(
+        'Vin Diesel',
+        'mr.diesel@mail.ru',
+        'Male',
+        '9999999999',
+        '15 August,1995',
+        'Computer Science',
+        'Sports',
+        'person1.jpg',
+        '32449 Herzog Heights Suite 572',
+        'Haryana Panipat'
     )
+
 
