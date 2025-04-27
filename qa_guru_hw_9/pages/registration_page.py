@@ -49,7 +49,7 @@ class RegistrationPage:
         browser.element('#dateOfBirthInput').click()
         browser.element('.react-datepicker__month-select').click().element(f'[value="{month}"]').click()
         browser.element('.react-datepicker__year-select').click().element(f'[value="{year}"]').click()
-        browser.element(f'.react-datepicker__day.react-datepicker__day--{day}').click()
+        browser.all('.react-datepicker__day').element_by(have.exact_text(day)).click()
         return self
 
     def fill_subjects(self, value):

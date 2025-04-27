@@ -9,7 +9,7 @@ def test_demo_qa():
     registration_page.fill_email('mr.diesel@mail.ru')
     registration_page.fill_gender('Male')
     registration_page.fill_number('9999999999')
-    registration_page.fill_date('7', '1995', '015')
+    registration_page.fill_date('7', '1995', '15')
     registration_page.fill_subjects('M')
     registration_page.fill_hobbies('Sports')
     registration_page.upload_img('person1.jpg')
